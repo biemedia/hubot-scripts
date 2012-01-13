@@ -24,6 +24,14 @@
 # be quiet - Mute play.
 # say <message> - `say` your message over your speakers.
 # play stats - Show some play stats.
+no_fucks = [
+  "You have a weird taste in music, but I'll remember it.",
+"Really? I hate this song.",
+"Good for you. Have a cookie.",
+"How horrible of you."
+
+]
+
 
 URL = "#{process.env.HUBOT_PLAY_URL}/api"
 
@@ -147,7 +155,7 @@ module.exports = (robot) ->
       .header('Content-Length', 0)
       .post() (err, res, body) ->
         json = JSON.parse(body)
-        message.send("You have a weird taste in music, but I'll remember it.")
+        message.send message.random no_fucks
 
   robot.respond /play something i('d)? like/i, (message) ->
     message.http("#{URL}/play_stars")
