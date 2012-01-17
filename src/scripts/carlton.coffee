@@ -21,7 +21,8 @@ carltons = [
 "http://hubot-assets.s3.amazonaws.com/dance/13.gif",
 "http://hubot-assets.s3.amazonaws.com/dance/14.gif",
 "http://hubot-assets.s3.amazonaws.com/dance/15.gif",
-"http://hubot-assets.s3.amazonaws.com/dance/16.gif"
+"http://hubot-assets.s3.amazonaws.com/dance/16.gif",
+"http://hubot-assets.s3.amazonaws.com/dance/17.gif"
 ]
 
 module.exports = (robot) ->
