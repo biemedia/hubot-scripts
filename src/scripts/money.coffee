@@ -4,7 +4,7 @@
 #
 
 no_fucks = [
-  "http://hubot-assets.s3.amazonaws.com/money/1.gif",
+  "http://hubot-assets.s3.amazonaws.com/money/6.gif",
 
 
 ]
