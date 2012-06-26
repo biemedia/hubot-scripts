@@ -15,7 +15,7 @@ no_fucks = [
 "http://hubot-assets.s3.amazonaws.com/party/9.gif",
 "http://hubot-assets.s3.amazonaws.com/party/10.gif",
 "http://hubot-assets.s3.amazonaws.com/party/11.gif",
-
+"http://hubot-assets.s3.amazonaws.com/party/12.gif",
 ]
 
 module.exports = (robot) ->
