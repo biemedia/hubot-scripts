@@ -10,5 +10,5 @@ no_fucks = [
 ]
 
 module.exports = (robot) ->
-  robot.hear /.*(money).*/i, (msg) ->
+  robot.hear /.*(monies).*/i, (msg) ->
     msg.send msg.random no_fucks
