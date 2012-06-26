@@ -58,6 +58,22 @@ module.exports = (robot) ->
         json = JSON.parse(body)
         message.send(json.message)
 
+  robot.respond /who'?s online/i, (message) ->
+    message.http("#{URL}/online")
+      .get() (err, res, body) ->
+        json = JSON.parse(body)
+        users = json.users
+        last_user = users.pop()
+
+        str = []
+        str.push users.join(", ")
+        str.push "and" if str.length
+        str.push last_user
+        str.push (if users.length then "are" else "is")
+        str.push "online"
+
+        message.send(str.join(" "))
+
   robot.respond /volume (.*)/i, (message) ->
     message.http("#{URL}/volume")
       .query(level: message.match[1])
@@ -69,12 +85,12 @@ module.exports = (robot) ->
           message.send("Bumped the volume for ya.")
         else
           message.send("Whoa, can't change the volume. Weird.")
-  
+
   robot.respond /volume$/i, (message) ->
     message.http("#{URL}/volume")
       .get() (err, res, body) ->
         json = JSON.parse(body)
-        message.send(json.message)
+        message.send("#{json.volume}")
 
   robot.respond /quiet/i, (message) ->
     message.http("#{URL}/volume")
@@ -137,17 +153,22 @@ module.exports = (robot) ->
           message.reply("Queued up " + str)
 
   robot.respond /play ["']?(.+)["']? by ["']?(.+)["']?/i, (message) ->
-    message.http("#{URL}/add_song")
-      .query(user_login: message.message.user.githubLogin, artist_name: message.match[2], song_title: message.match[1])
-      .header('Content-Length', 0)
-      .post() (err, res, body) ->
-        json = JSON.parse(body)
-        if json.song_title
-          str = "\"" + json.song_title + "\" by " +
-                json.artist_name + ", from \"" + json.album_name + "\"."
-          message.send("Queued up " + str)
-        else
-          message.send("Never heard of it.")
+    if message.match[2] == "skrillex"
+      message.send("http://kontraband.se/blog/wp-content/uploads/2009/07/transformer1.gif")
+    else if message.match[2] == "leela"
+      message.send("HA! He'd have to make some beats first.")
+    else
+      message.http("#{URL}/add_song")
+        .query(user_login: message.message.user.githubLogin, artist_name: message.match[2], song_title: message.match[1])
+        .header('Content-Length', 0)
+        .post() (err, res, body) ->
+          json = JSON.parse(body)
+          if json.song_title
+            str = "\"" + json.song_title + "\" by " +
+                  json.artist_name + ", from \"" + json.album_name + "\"."
+            message.send("Queued up " + str)
+          else
+            message.send("Never heard of it.")
 
   robot.respond /(I like|star|I love) this song/i, (message) ->
     message.http("#{URL}/star_now_playing")
@@ -155,7 +176,7 @@ module.exports = (robot) ->
       .header('Content-Length', 0)
       .post() (err, res, body) ->
         json = JSON.parse(body)
-        message.send message.random no_fucks
+        message.send message.send message.random no_fucks
 
   robot.respond /play something i('d)? like/i, (message) ->
     message.http("#{URL}/play_stars")
