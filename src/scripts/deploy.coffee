@@ -16,7 +16,7 @@ hackers = [
 
 #array of the repo names to match and deploy
 repos = [
-  "omp",
+  # "omp",
   "boss",
   "uploaders",
   "biemedia",
@@ -24,7 +24,8 @@ repos = [
   "html5_player",
   "html5_clients",
   "flex_clients",
-  "test"
+  # "test",
+  "metrics"
 ]
 
 module.exports = (robot) ->
